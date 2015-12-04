@@ -42,14 +42,14 @@ n <- as.numeric(opts$n)
 nproc <- as.numeric(opts$nproc)
 outpath <- opts$outpath
 
-#abo.file <- "../results/pABO/abo.table.pABO.txt"
-#cov.file <- "../results/pABO/covs.table.pABO.txt"
-#bc.file <- "../results/pABO/beta.div.bc.pABO.txt"
-#wu.file <- "../results/pABO/beta.div.wu.pABO.txt"
-#uu.file <- "../results/pABO/beta.div.uu.pABO.txt"
-#n <- 100
-#nproc <- 4
-#outpath <- "../results/pABO/8_beta_diversity/"
+abo.file <- "../results/pABO/abo.table.pABO.txt"
+cov.file <- "../results/pABO/covs.table.pABO.txt"
+bc.file <- "../results/pABO/beta.div.bc.pABO.txt"
+wu.file <- "../results/pABO/beta.div.wu.pABO.txt"
+uu.file <- "../results/pABO/beta.div.uu.pABO.txt"
+n <- 100
+nproc <- 4
+outpath <- "../results/pABO/8_beta_diversity/"
 
 
 
@@ -105,13 +105,22 @@ groupme <- function(m) {
 	}
 }
 
-
+groupme <- function(m) {
+	if (m[1] == m[2]) {
+		return("within")
+	} else {
+		return("between")
+	}
+}
 
 ##### Create melted distance table for each distance metric with either ABO or SS labels:
+
+####### TRY NOT SETTING TO 999 
 bc2[upper.tri(bc2, diag=TRUE)] <- 999
 colnames(bc2) <- abo2$ABO
 rownames(bc2) <- abo2$ABO
 bc.abo.M <- subset(melt(bc2), value!=999)
+#bc.abo.M <- subset(melt(bc2), !is.na(value))
 colnames(bc2) <- abo2$secretor_status
 rownames(bc2) <- abo2$secretor_status
 bc.ss.M <- subset(melt(bc2), value!=999)
@@ -135,6 +144,11 @@ uu.ss.M <- subset(melt(uu2), value!=999)
 
 
 ##### Calculate actual t-test p-value:
+
+##### YO THIS:
+result = ifelse(bc.ss.M$Var1 == bc.ss.M$Var2, "within", "between")
+######
+
 abo.group <- apply(bc.abo.M, 1, groupme)
 ss.group <- apply(bc.ss.M, 1, groupme)
 
@@ -157,9 +171,20 @@ print("running permutations in parallel")
 cl <- makeCluster(nproc)
 registerDoParallel(cl)
 
+
+
+######### NOTES:
+do a match to match individuals who were permuted to orig IDs
+then do lookup with ABO/SS
+Could be faster than the melt?
+
+Update submission script to make sure they're going to the same machine
+#########
+
 # Start time:
 strt <- Sys.time()
 
+# mclapply
 x <- foreach(j=1:n, .packages=c("reshape2")) %dopar% {
 	set.seed(j)
 	print(paste0("on permutation ",j, "of ",n))
