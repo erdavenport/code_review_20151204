@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #$ -S /bin/bash
-#$ -q long_term.q 
+#$ -q regular.q 
 #$ -j n
 #$ -N beta_div_perms
 #$ -M ed379@cornell.edu
@@ -21,7 +21,7 @@
 # $9 outpath <- "../results/pABO/8_beta_diversity/"
 
 # date
-echo hi
+echo $1
 d1=$(date +%s)
 
 # Move to scripts folder:
