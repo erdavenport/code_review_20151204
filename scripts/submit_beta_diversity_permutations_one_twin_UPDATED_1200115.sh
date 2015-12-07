@@ -7,7 +7,6 @@
 #$ -M ed379@cornell.edu
 #$ -m be
 #$ -pe bscb 4
-#$ -l h_rt=350:00:00
 
 # script inputs:
 # $1 abo.file <- "../results/pABO/abo.table.pABO.txt"
