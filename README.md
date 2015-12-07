@@ -23,7 +23,6 @@ do
 qsub submit_beta_diversity_permutations_one_twin_1200115.sh \
 	--abo_file=../results/$i/abo.table.$i.txt \
 	--cov_file=../results/$i/covs.table.$i.txt \
-	--taxa_file=../results/$i/taxa.table.$i.txt \
 	--bc_file=../results/$i/beta.div.bc.$i.txt \
 	--uu_file=../results/$i/beta.div.wu.$i.txt \
 	--wu_file=../results/$i/beta.div.uu.$i.txt \
@@ -41,7 +40,6 @@ do
 qsub submit_beta_diversity_permutations_one_twin_UPDATED_1200115.sh \
 	--abo_file=../results/$i/abo.table.$i.txt \
 	--cov_file=../results/$i/covs.table.$i.txt \
-	--taxa_file=../results/$i/taxa.table.$i.txt \
 	--bc_file=../results/$i/beta.div.bc.$i.txt \
 	--uu_file=../results/$i/beta.div.wu.$i.txt \
 	--wu_file=../results/$i/beta.div.uu.$i.txt \
