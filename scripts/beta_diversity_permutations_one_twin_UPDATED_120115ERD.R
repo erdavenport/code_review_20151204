@@ -143,6 +143,7 @@ strt <- Sys.time()
 
 # generate sample permutations
 ID.idx <- 1:ncol(bc2)
+set.seed(1)
 perm.list <- lapply(1:n, function(x) sample(ID.idx))
 
 perm.out <- mclapply(perm.list, function(j)
@@ -189,7 +190,7 @@ rownames(all.ps)[1:2] <- c("permutation_p", "t.test_p")
 
 ##### Write out table:
 print("writing out table of p-values")
-write.table(all.ps, paste0(outpath, "beta_div_t_test_permutations_n_",n,"_",today,"ERD.txt"), sep="\t", quote=FALSE)
+write.table(all.ps, paste0(outpath, "beta_div_t_test_permutations_UPDATED_n_",n,"_",today,"ERD.txt"), sep="\t", quote=FALSE)
 
 
 
