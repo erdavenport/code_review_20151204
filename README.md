@@ -3,15 +3,15 @@
 ## Contents:
 This repo contains the script that we covered in code review on 12-4-2015: `beta_diversity_permutations_one_twin_120115ERD.R`. 
 In addition:  
-* `scripts/`:  
-  *`beta_diversity_permutations_one_twin_120115ERD.R`: The original script (with some notes in it from the CR)
-  *`beta_diversity_permutations_one_twin_UPDATED_120115ERD.R`: The new script with comments incorporated 
-  *`submit_beta_diversity_permutations_one_twin_1200115.sh`: The original submission script to run the permutations on the cluster
-  *`submit_beta_diversity_permutations_one_twin_UPDATED_1200115.sh`: The new submission script to run the UPDATED script on the cluster
-  *`code_review_notes_to_Emily.r`: File Elissa sent with her updates to the script. Elissa == awesome.  
-* `results/`:
-  * This folder contains all of the data files necessary for running the script and will hold the output of the permutations. 
-* `code_review_setup.pptx`: 
+* `scripts/`:
+  * `beta_diversity_permutations_one_twin_120115ERD.R`: The original script (with some notes in it from the CR)  
+  * `beta_diversity_permutations_one_twin_UPDATED_120115ERD.R`: The new script with comments incorporated   
+  * `submit_beta_diversity_permutations_one_twin_1200115.sh`: The original submission script to run the permutations on the cluster  
+  * `submit_beta_diversity_permutations_one_twin_UPDATED_1200115.sh`: The new submission script to run the UPDATED script on the cluster  
+  * `code_review_notes_to_Emily.r`: File Elissa sent with her updates to the script. Elissa == awesome.  
+* `results/`:  
+  * This folder contains all of the data files necessary for running the script and will hold the output of the permutations.  
+* `code_review_setup.pptx`:  
   * The powerpoint I ran through quickly at the beginning of code review to set up what the script was doing.  
 
 ## To run:
@@ -52,7 +52,7 @@ done
 ```
 
 ## Notes:  
-* Create one melted look-up table that contains all of the distance metrics, rather than having three tables floating around:
+* Create one melted look-up table that contains all of the distance metrics, rather than having three tables floating around:  
 Original (and UGLY):  
 ```
 bc2[upper.tri(bc2, diag=TRUE)] <- 999
@@ -92,13 +92,13 @@ names(melt.dist) <- c("ID1", "ID2", "bc2")
 # add other distance metrics
 melt.dist$wu2 <- melt(wu2)$value
 melt.dist$uu2 <- melt(uu2)$value
-```
 
 # remove NA rows
 melt.dist <- melt.dist[!is.na(melt.dist$bc2), ]
-
+```
 
 * Replace the function to determine "within" and "between" with ifelse function (hat tip to Elissa, I didn't know about this!):  
+
 Original:  
 ```
 groupme <- function(m) {
