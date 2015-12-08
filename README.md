@@ -49,7 +49,7 @@ qsub submit_beta_diversity_permutations_one_twin_UPDATED_1200115.sh \
 done
 ```
 
-## Notes:  
+## Notes about what was changed:  
 * Create one melted look-up table that contains all of the distance metrics, rather than having three tables floating around:  
 Original (and UGLY):  
 ```
@@ -154,3 +154,5 @@ perm.out <- mclapply(perm.list, function(j)
 ```
 
 Big big thanks to everyone for comments!
+I tested my new code vs. the old code and it's 2.4x faster.
+w00t.
